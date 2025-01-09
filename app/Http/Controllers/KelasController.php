@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,7 +44,7 @@ class KelasController extends Controller
 
         $codeRandom =  str()->random(5);
         // dd($codeRandom);
-
+        // dd(Auth::id());
         Kelas::create([
             'user_id' => Auth::id(),
             'kelas' => $request->kelas,
@@ -54,5 +55,28 @@ class KelasController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'kelas berhasil ditambahkan!');
+    }
+
+    public function siswa(Request $request) {
+
+        $request->validate([
+            'kode' => 'required|string'
+        ]);
+
+        $cariKelas = Kelas::where('code_kelas',$request->kode)->first();
+        $idKelas = $cariKelas->id;
+        // dd($idKelas);
+        Siswa::create([
+            'user_id' => Auth::id(),
+            'kelas_id' => $idKelas
+        ]);
+
+        return redirect()->back();
+    }
+
+
+    public function siswaIndex(){
+        $kelas = Siswa::where('user_id',Auth::id())->get();
+        return view('siswa.gabungKelas',compact('kelas'));
     }
 }

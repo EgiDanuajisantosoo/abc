@@ -9,7 +9,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Home</title>
 </head>
-
+{{ session()->forget('kelas_id') }}
+{{-- {{ dd(session('kelas_id')) }} --}}
+{{-- {{ dd(session('key')) }} --}}
 <body class="h-full text-white">
 
     <!-- Navbar -->

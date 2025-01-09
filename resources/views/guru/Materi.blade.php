@@ -110,7 +110,7 @@
             <div class="flex space-x-6">
                 <button class="border-b-2 border-teal-500 text-teal-500 font-semibold">Daftar Materi</button>
             </div>
-            <button onclick="location.href='/guru/6';"
+            <button onclick="location.href='/tambahMateri/1';"
                 class=" bg-orange-500 text-white px-4 py-2 rounded font-semibold hover:bg-orange-600">
                 Tambah Materi
             </button>

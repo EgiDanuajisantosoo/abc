@@ -143,23 +143,26 @@
                             <div class="bg-white rounded-lg shadow-lg p-6 transform transition-all scale-90 opacity-0"
                                 id="popup-content">
                                 <h2 class="text-black font-bold mb-4">Gabung Kelas Baru</h2>
-                                <!-- Kontainer untuk label dan select yang sejajar -->
-                                <div class="grid grid-cols-1  items-start">
-                                    <!-- Label dan Select pertama -->
-                                    <div class="flex flex-col">
-                                        <label class="block mb-2 font-semibold text-gray-700">Masukkan kode kelas</label>
-                                        <input type="text" placeholder="Contoh: A12BC4"
-                                            class="w-full text-black mb-4 p-2 border border-gray-300 rounded">
-                                        </select>
+                                <form action="{{ route('siswa.store') }}" method="post">
+                                    @csrf
+                                    <!-- Kontainer untuk label dan select yang sejajar -->
+                                    <div class="grid grid-cols-1  items-start">
+                                        <!-- Label dan Select pertama -->
+                                        <div class="flex flex-col">
+                                            <label class="block mb-2 font-semibold text-gray-700">Masukkan kode kelas</label>
+                                            <input type="text" name="kode" placeholder="Contoh: A12BC4"
+                                                class="w-full text-black mb-4 p-2 border border-gray-300 rounded">
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <button class="mt-4 bg-blue-500 text-white p-2 w-20 rounded-md" onclick="closePopup()">
-                                    Masuk
-                                </button>
-                                <button class="mt-4 bg-red-500 text-white p-2 rounded-md" onclick="closePopup()">
-                                    Batal
-                                </button>
+    
+                                    <button type="submit" class="mt-4 bg-blue-500 text-white p-2 w-20 rounded-md">
+                                        Masuk
+                                    </button>
+                                    <button class="mt-4 bg-red-500 text-white p-2 rounded-md" onclick="closePopup()">
+                                        Batal
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -211,12 +214,13 @@
             <!-- Kelas Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!-- Kelas Card -->
+                @foreach ($kelas as $kelasSiswa)
                 <div class="bg-white p-4 rounded-lg shadow-md"
                     style="background-image: url('images/2.jpeg'); background-size: cover; background-position: center;">
                     <div class="flex items-center space-x-4">
                         <div>
-                            <h3 class="text-black font-semibold">12 IPA 1</h3>
-                            <p class="text-sm text-gray-600">Bahasa Indonesia</p>
+                            <h3 class="text-black font-semibold">{{ $kelasSiswa->kelas->nama_kelas }}</h3>
+                            <p class="text-sm text-gray-600">{{ $kelasSiswa->kelas->mata_pelajaran }}</p>
                         </div>
                     </div>
                     <div class="mt-4 flex justify-between items-center"><a href="/siswa/1" class="bg-blue-500 text-white px-3 py-1 rounded-lg">Lihat Kelas</a>
@@ -224,6 +228,7 @@
                         <button class="bg-red-500 text-white px-3 py-1 rounded-lg">Hapus</button>
                     </div>
                 </div>
+                @endforeach
             </div>
 
 

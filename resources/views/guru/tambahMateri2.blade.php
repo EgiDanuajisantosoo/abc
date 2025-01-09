@@ -36,7 +36,8 @@
                         </div>
                     </div>
                     <!-- Step 2 -->
-                    <div class="flex active items-center space-x-2 border-b-2 hover:bg-gray-200 border-teal-300 font-semibold">
+                    <div
+                        class="flex active items-center space-x-2 border-b-2 hover:bg-gray-200 border-teal-300 font-semibold">
                         <div
                             class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">
                             2</div>
@@ -72,9 +73,11 @@
                     </div>
                 </div>
                 <div class="flex flex-wrap gap-4 mt-4">
-                    <button id="tambah-materi-btn"
-                        class="bg-orange-500 hover:bg-orange-400 text-white px-4 py-2 rounded-lg flex items-center gap-2">
-                        <span class="text-xl">+</span> Tambah Materi
+                    <form id="form-action" action="{{ route('tambahMateri3') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <input type="file" name="gambar"
+                            class="bg-orange-500 hover:bg-orange-400 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                    </form>
                     </button>
                     <button
                         class="border border-orange-500 text-orange-500 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-orange-200">
@@ -91,9 +94,13 @@
                         <a href="/guru/6"
                             class="border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-200">Kembali
                             ke Detail Materi</a>
-                        <button class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg">Lanjut Bagikan Materi</button>
+                        <button onclick="submit()" class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg">Lanjut Bagikan Materi</button>
+                        <script>
+                            function submit(){
+                                document.getElementById('form-action').submit();
+                            }
+                        </script>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -104,8 +111,10 @@
             <p class="mb-4 text-gray-700">Apakah Anda yakin akan keluar?</p>
             <p class="mb-4 text-gray-700">Perubahan di halaman ini tidak akan tersimpan.</p>
             <div class="flex justify-center gap-4">
-                <button id="cancel-button" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-700">Tidak</button>
-                <button id="confirm-button" class="px-4 py-2 bg-orange-500 hover:bg-orange-400 text-white rounded-lg">Ya</button>
+                <button id="cancel-button"
+                    class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-700">Tidak</button>
+                <button id="confirm-button"
+                    class="px-4 py-2 bg-orange-500 hover:bg-orange-400 text-white rounded-lg">Ya</button>
             </div>
         </div>
     </div>
@@ -128,7 +137,6 @@
             // Arahkan ke menu awal
             window.location.href = "/guru/2"; // Ganti dengan URL atau file menu awal
         });
-
     </script>
 
     <!-- Popup Dialog -->
@@ -142,7 +150,8 @@
             <div class="space-y-4">
 
                 <!-- Tombol "Unggah Materi" -->
-                <button id="unggah-materi-btn" class="w-full flex items-center gap-4 px-4 py-2 bg-blue-100 hover:bg-blue-200 rounded-lg">
+                <button id="unggah-materi-btn"
+                    class="w-full flex items-center gap-4 px-4 py-2 bg-blue-100 hover:bg-blue-200 rounded-lg">
                     <img src="https://img.icons8.com/?size=100&id=113794&format=png&color=000000" alt="Icon"
                         class="w-10 h-10">
                     <div>
@@ -168,12 +177,12 @@
             <div class="space-y-4">
                 <div class="bg-gray-100 p-3 rounded-lg text-center">
 
-                        <!-- Tombol Tambah Materi -->
-                        <label for="file-upload"
-                            class="bg-orange-500 w-full justify-center text-white px-4 py-2 rounded-lg hover:bg-orange-400 flex items-center gap-2 cursor-pointer">
-                            <span class="text-xl">+</span> Unggah Materi
-                        </label>
-                        <input id="file-upload" type="file" class="hidden" />
+                    <!-- Tombol Tambah Materi -->
+                    <label for="file-upload"
+                        class="bg-orange-500 w-full justify-center text-white px-4 py-2 rounded-lg hover:bg-orange-400 flex items-center gap-2 cursor-pointer">
+                        <span class="text-xl">+</span> Unggah Materi
+                    </label>
+                    <input id="file-upload" type="file" class="hidden" />
 
                     <ul class="text-sm text-gray-600 mt-2">
                         <li>• Maksimal file 10MB dengan format .jpg, .jpeg, .png.</li>
@@ -186,8 +195,10 @@
                         class="w-full border-gray-300 shadow-sm mt-2">
                 </div>
                 <div class="flex justify-end gap-4">
-                    <button id="batal-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-500 px-4 py-2 rounded-lg">Batal</button>
-                    <button class="bg-orange-500 hover:bg-orange-400 text-white px-4 py-2 rounded-lg">Tambah File</button>
+                    <button id="batal-btn"
+                        class="bg-gray-200 hover:bg-gray-300 text-gray-500 px-4 py-2 rounded-lg">Batal</button>
+                    <button class="bg-orange-500 hover:bg-orange-400 text-white px-4 py-2 rounded-lg">Tambah
+                        File</button>
                 </div>
             </div>
         </div>
@@ -195,7 +206,6 @@
 
 
     <script>
-
         // Ambil elemen dialog utama
         const popupDialog = document.getElementById('popup-dialog');
         const closePopupBtn = document.getElementById('close-popup-btn');
@@ -234,8 +244,6 @@
                 unggahMateriDialog.classList.add('hidden');
             }
         });
-
-
     </script>
 
 

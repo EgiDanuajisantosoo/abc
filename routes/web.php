@@ -1,8 +1,15 @@
 <?php
 
 use App\Models\Kelas;
-use Illuminate\Support\Facades\Route;
+use App\Models\Siswa;
+use App\Models\Materi;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\MateriController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return view('home');
@@ -12,17 +19,21 @@ Route::get('/home1', function () {
     return view('home1');
 });
 
-Route::get('/user', function () {
-    return view('user.blog');
-});
+// Route::get('/user', function () {
+//     return view('user.blog');
+// });
+
+Route::get('/user',[BookingController::class, 'index'])->name('userBoking');
 
 Route::get('/user/1', function () {
     return view('user.menuPembayaran');
 });
 
-Route::get('/siswa', function () {
-    return view('siswa.gabungKelas');
-});
+// Route::get('/siswa', function () {
+//     return view('siswa.gabungKelas');
+// });
+
+
 
 Route::get('/siswa/1', function () {
     return view('siswa.timeLine');
@@ -45,27 +56,30 @@ Route::get('/siswa/5', function () {
 });
 
 Route::get('/profile', function () {
-    return view('profile');
+    return view('user.profile');
 });
 
 
 
-Route::get('/guru', function () {
-    $kelas = Kelas::get();
-    // dd($kelas);
+Route::get('/kelas', function () {
+    $kelas = Kelas::where('user_id',Auth::id())->get();
+    // dd(Auth::id());
+    
     return view('guru.Home', compact("kelas"));
 });
 
-Route::delete('/guru/{id}', function ($id) {
+Route::delete('/kelas/{id}', function ($id) {
     $kelas = Kelas::find($id);
     $kelas->delete();
     return redirect()->back()->with('success', 'Kelas berhasil dihapus.');
- });
+});
 
 Route::get('/timeLine/{id}', function ($id) {
-    // dd($id);
+    session(['kelas_id' => $id]);
     $kelas = Kelas::find($id);
-    return view('guru.timeLine',compact('kelas'));
+    $siswa = Siswa::where('kelas_id',$id)->get();
+    $materi = Materi::where([['kelas_id',$id],['user_id',Auth::id()]])->get();
+    return view('guru.timeLine',compact('kelas','siswa','materi'));
 });
 
 Route::get('/guru/2', function () {
@@ -83,17 +97,22 @@ Route::get('/guru/5', function () {
     return view('guru.daftarPesanan');
 });
 
-Route::get('/guru/6', function () {
-    return view('guru.tambahMateri');
-});
+// Route::get('/tambahMateri/1', function () {
+//     return view('guru.tambahMateri');
+// });
 
-Route::get('/guru/7', function () {
-    return view('guru.tambahMateri2');
-});
+Route::get('/tambahMateri/1', [MateriController::class, 'tambahMateri1'])->name('tambahMateri1');
+Route::post('/tambahMateri/2', [MateriController::class, 'tambahMateri2'])->name('tambahMateri2');
+Route::post('/tambahMateri/3', [MateriController::class, 'tambahMateri3'])->name('tambahMateri3');
+Route::post('/tambahMateri/4', [MateriController::class, 'createTambahMateri'])->name('createTambahMateri');
 
-Route::get('/guru/8', function () {
-    return view('guru.tambahMateri3');
-});
+// Route::get('/tambahMateri/2', function () {
+//     return view('guru.tambahMateri2');
+// });
+
+// Route::get('/tambahMateri/3', function () {
+//     return view('guru.tambahMateri3');
+// });
 
 Route::get('/guru/9', function () {
     return view('guru.tambahMateri4');
@@ -110,24 +129,27 @@ Route::get('/login', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-use App\Http\Controllers\MateriController;
+
 
 Route::post('/materi', [MateriController::class, 'store'])->name('materi.store');
 
-use App\Http\Controllers\KelasController;
+
 
 Route::post('/kelas/store', [KelasController::class, 'store'])->name('kelas.store');
+Route::post('/siswa/store/', [KelasController::class, 'siswa'])->name('siswa.store');
 
-use App\Http\Controllers\BookingController;
+Route::get('/siswa',[KelasController::class,'siswaIndex'])->name('siswa.index');
+
+
 
 Route::post('/bookings', [BookingController::class, 'store'])->middleware('auth');
 
 
-use App\Http\Controllers\OrderController;
+
 
 Route::get('orders/create', [OrderController::class, 'create'])->name('orders.create');
 Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
 
-use App\Http\Controllers\PaymentController;
+
 
 Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
