@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PaymentController;
@@ -23,11 +24,15 @@ Route::get('/home1', function () {
 //     return view('user.blog');
 // });
 
-Route::get('/user',[BookingController::class, 'index'])->name('userBoking');
+Route::get('/user',[OrderController::class, 'index'])->name('userBoking');
+Route::post('/user/order/{id}',[OrderController::class, 'store'])->name('userBokingMateri');
+Route::get('/user/pembayaran',[OrderController::class, 'pembayaran'])->name('userBayar');
 
-Route::get('/user/1', function () {
-    return view('user.menuPembayaran');
-});
+// Route::get('/user/pembayaran', function () {
+//     return view('user.menuPembayaran');
+// });
+
+
 
 // Route::get('/siswa', function () {
 //     return view('siswa.gabungKelas');
@@ -35,9 +40,11 @@ Route::get('/user/1', function () {
 
 
 
-Route::get('/siswa/1', function () {
-    return view('siswa.timeLine');
-});
+// Route::get('/siswa/1', function () {
+//     return view('siswa.timeLine');
+// });
+
+Route::get('/siswa/timeline/{id}',[KelasController::class,'kelasUser'])->name('kelasUser');
 
 Route::get('/siswa/2', function () {
     return view('siswa.Materi');
@@ -93,10 +100,11 @@ Route::get('/guru/4', function () {
     return view('guru.anggotaKelas');
 });
 
-Route::get('/guru/5', function () {
-    return view('guru.daftarPesanan');
-});
+// Route::get('/guru/5', function () {
+//     return view('guru.daftarPesanan');
+// });
 
+Route::get('/guru/pembayaran',[PaymentController::class, 'tampilPembayaran'])->name('tampilPembayaran');
 // Route::get('/tambahMateri/1', function () {
 //     return view('guru.tambahMateri');
 // });
@@ -149,7 +157,13 @@ Route::post('/bookings', [BookingController::class, 'store'])->middleware('auth'
 
 Route::get('orders/create', [OrderController::class, 'create'])->name('orders.create');
 Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
+Route::post('guru/kirimKode', [OrderController::class, 'kirimCode'])->name('orders.kirimKode');
 
 
 
 Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
+
+Route::get('/api/provinces', [LokasiController::class, 'getProvinces']);
+Route::get('/api/regencies/{id}', [LokasiController::class, 'getRegencies']);
+Route::get('/api/districts/{id}', [LokasiController::class, 'getDistricts']);
+Route::get('/api/villages/{id}', [LokasiController::class, 'getVillages']);

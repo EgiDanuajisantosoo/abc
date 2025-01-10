@@ -101,46 +101,45 @@
         <div class="box grid grid-cols-3 gap-4">
             <!-- Card 1 -->
             @foreach ($materi as $tampilMateri)
-            
                 <div class="bg-white p-4 rounded-md shadow-md card">
                     <img alt="Tutor Image" class="w-full h-48 object-cover rounded-md mb-4"
-                        src="{{ asset('storage/public/gambar/'.$tampilMateri->gambar) }}"
-                        width="150" />
-                    <h2 class="text-lg font-bold mb-2">{{$tampilMateri->judul}}</h2>
-                    <p class="text-gray-500 mb-2">Tutor: {{ $tampilMateri->user->name}}</p>
+                        src="{{ asset('storage/public/gambar/' . $tampilMateri->gambar) }}" width="150" />
+                    <h2 class="text-lg font-bold mb-2">{{ $tampilMateri->judul }}</h2>
+                    <p class="text-gray-500 mb-2">Tutor: {{ $tampilMateri->user->name }}</p>
                     <p class="text-gray-500 mb-2">{{ $tampilMateri->deskripsi }}</p>
                     <p class="text-blue-500 font-bold mb-2">{{ $tampilMateri->harga }}</p>
-                    <button class="bg-blue-500 text-white p-2 rounded-md" onclick="openPopup()">Details</button>
+                    <button class="bg-blue-500 text-white p-2 rounded-md"
+                        onclick="openPopup('{{ $tampilMateri->id }}')">Details</button>
+
                     <!-- Popup Modal -->
-                    <div id="popup" 
+                    <div id="popup-{{ $tampilMateri->id }}"
                         class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center hidden">
                         <div class="bg-white min-w-[400px] rounded-lg shadow-lg p-6 transform transition-all scale-90 opacity-0"
-                            id="popup-content">
-                            <!-- Kiri: Foto Tutor -->
+                            id="popup-content-{{ $tampilMateri->id }}">
                             <div class="flex items-left p-6">
                                 <img src="{{ asset('images/temann.png') }}" alt="Tutor Photo"
                                     class="w-32 h-32 rounded-full">
                             </div>
-                            <!-- Kanan: Detail Tutor -->
-                            <div class="flex-1 p-6 justify-center">
+                            <div class="flex-1 p-6">
                                 <h2 class="text-xl font-bold mb-4">Tutor Details</h2>
                                 <p><strong>Name:</strong> {{ $tampilMateri->user->name }}</p>
                                 <p><strong>Experience:</strong> 10 years</p>
                                 <p><strong>Price:</strong> {{ $tampilMateri->harga }}</p>
                                 <p><strong>Description:</strong> {{ $tampilMateri->deskripsi }}</p>
 
-                                <button id = "order" type = "button"
-                                    class="mt-4 bg-blue-500 text-white p-2 w-20 rounded-md">
-                                    Booking
-                                </button>
-                                <button class="mt-4 bg-red-500 text-white p-2 rounded-md" onclick="closePopup()">
-                                    Close
-                                </button>
+                                <form id="form-action-{{ $tampilMateri->id }}"
+                                    action="{{ route('userBokingMateri', ['id' => $tampilMateri->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                </form>
 
+                                <button type="button" onclick="boking('{{ $tampilMateri->id }}')"
+                                    class="mt-4 bg-blue-500 text-white p-2 w-20 rounded-md">Booking</button>
+                                <button class="mt-4 bg-red-500 text-white p-2 rounded-md"
+                                    onclick="closePopup('{{ $tampilMateri->id }}')">Close</button>
                             </div>
                         </div>
                     </div>
-
                 </div>
             @endforeach
 
@@ -187,23 +186,23 @@
             sidebar.classList.toggle("-translate-x-full");
         });
 
-        function openPopup() {
-            const popup = document.getElementById('popup');
-            const popupContent = document.getElementById('popup-content');
-            popup.classList.remove('hidden');
-            setTimeout(() => {
-                popupContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
-        }
+        // function openPopup() {
+        //     const popup = document.getElementById('popup');
+        //     const popupContent = document.getElementById('popup-content');
+        //     popup.classList.remove('hidden');
+        //     setTimeout(() => {
+        //         popupContent.classList.add('scale-100', 'opacity-100');
+        //     }, 10);
+        // }
 
-        function closePopup() {
-            const popup = document.getElementById('popup');
-            const popupContent = document.getElementById('popup-content');
-            popupContent.classList.remove('scale-100', 'opacity-100');
-            setTimeout(() => {
-                popup.classList.add('hidden');
-            }, 300);
-        }
+        // function closePopup() {
+        //     const popup = document.getElementById('popup');
+        //     const popupContent = document.getElementById('popup-content');
+        //     popupContent.classList.remove('scale-100', 'opacity-100');
+        //     setTimeout(() => {
+        //         popup.classList.add('hidden');
+        //     }, 300);
+        // }
 
         $("#order").click(function() {
             $.ajax({
@@ -230,6 +229,46 @@
             });
         });
     </script>
+    <style>
+        .hidden {
+            display: none;
+        }
+        .visible {
+            display: flex;
+        }
+        .scale-100 {
+            transform: scale(1);
+            opacity: 1;
+        }
+        </style>
+        
+        <script>
+            function openPopup(id) {
+                const popup = document.getElementById(`popup-${id}`);
+                const popupContent = document.getElementById(`popup-content-${id}`);
+                popup.classList.remove('hidden');
+                popup.classList.add('visible');
+                setTimeout(() => {
+                    popupContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+        
+            function closePopup(id) {
+                const popup = document.getElementById(`popup-${id}`);
+                const popupContent = document.getElementById(`popup-content-${id}`);
+                popupContent.classList.remove('scale-100', 'opacity-100');
+                setTimeout(() => {
+                    popup.classList.remove('visible');
+                    popup.classList.add('hidden');
+                }, 300);
+            }
+        
+            function boking(id) {
+                // alert(`Booking ID: ${id}`);
+                const form = document.getElementById(`form-action-${id}`);
+                form.submit();
+            }
+        </script>
 </body>
 
 </html>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Order;
 use App\Models\Siswa;
+use App\Models\Materi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -76,7 +78,18 @@ class KelasController extends Controller
 
 
     public function siswaIndex(){
+        $code = Order::where([['user_id',Auth::id()],['status','Dibayar']])->get('code_kelas');
         $kelas = Siswa::where('user_id',Auth::id())->get();
-        return view('siswa.gabungKelas',compact('kelas'));
+        session()->forget('kelas_id');
+        return view('siswa.gabungKelas',compact('kelas','code'));
+    }
+
+    public function kelasUser($id){
+        // session(['kelas_id' => $id]);
+        $kelas = Kelas::find($id);
+        $materi = Materi::where('kelas_id',$id)->get();
+        $siswa = Siswa::where('kelas_id',$id)->count();
+        // dd($kelas);
+        return view('siswa.timeLine',compact('materi','kelas','siswa'));
     }
 }

@@ -73,7 +73,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/guru/5" class="flex items-center p-2 rounded-md hover:bg-blue-600">
+                    <a href="/guru/pembayaran/{{ session('kelas_id') }}" class="flex items-center p-2 rounded-md hover:bg-blue-600">
                         <img src="https://img.icons8.com/?size=100&id=bpb1NWfrmmHv&format=png&color=000000"
                             class="w-6 h-6" alt="Icon">
                         <span class="ml-2">Daftar Pesanan</span>
@@ -106,7 +106,7 @@
 
     </script>
 
-    <!-- Main Content -->
+        <!-- Main Content -->
     <div class=" w-screen  items-center justify-center p-9">
         <div class="w-full  bg-white rounded-lg shadow-lg p-6">
             <div class="bg-red-600 text-white rounded-md p-8 justify-between items-center"

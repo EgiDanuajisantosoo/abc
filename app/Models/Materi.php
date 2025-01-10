@@ -32,4 +32,9 @@ class Materi extends Model
     {
         return $this->belongsTo(Kelas::class);
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
