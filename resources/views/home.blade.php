@@ -143,7 +143,7 @@
                     </div> -->
 
                     <!-- Image in the Center -->
-                    <div class="relative">
+                    <div class="relative -z-10">
                         <img class="rounded-lg" src="images/fotokitaaa.png" alt="Student Studying">
                     </div>
 
