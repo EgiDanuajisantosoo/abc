@@ -165,7 +165,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4m1-6a9 9 0 11-8 0" />
                             </svg>
-                            <span>1 Lampiran</span>
+                            <span><a href="/download/{{ $materiKelas->fileModul }}">1 Lampiran</a></span>
                         </button>
                     </div>
                     <button class="flex items-center space-x-1 hover:text-gray-700">

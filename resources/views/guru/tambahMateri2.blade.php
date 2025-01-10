@@ -14,7 +14,7 @@
     <div class="min-h-screen bg-gray-50 p-4 sm:p-8">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-xl font-semibold text-gray-800">Tambah Materi</h1>
+            <h1 class="text-xl font-semibold text-gray-800">Tambahkan Gambar Sebagai Thumbnail</h1>
             <button id="close-button" class="text-gray-600 hover:text-gray-800">
                 <img src="https://img.icons8.com/ios-glyphs/30/000000/multiply.png" alt="Close">
             </button>
@@ -42,8 +42,8 @@
                             class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">
                             2</div>
                         <div>
-                            <h2 class="font-semibold text-gray-800">Buat Materi</h2>
-                            <p class="text-sm text-gray-600">Tambahkan materi dari berbagai sumber</p>
+                            <h2 class="font-semibold text-gray-800">Tambahkan Gambar</h2>
+                            <p class="text-sm text-gray-600">Tambahkan gambar sebagai thumbnail</p>
                         </div>
                     </div>
                     <!-- Step 3 -->
@@ -61,15 +61,15 @@
 
             <!-- Main Content -->
             <div class="bg-white rounded-lg shadow-md p-6 lg:col-span-3">
-                <h2 class="text-lg font-semibold mb-4">Buat Materi</h2>
+                <h2 class="text-lg font-semibold mb-4">Tambah Gambar</h2>
                 <div class="bg-gray-100 p-4 rounded-lg flex items-center gap-4">
                     <div class="bg-gray-200 p-4 rounded-lg">
                         <img src="https://img.icons8.com/?size=100&id=119436&format=png&color=000000" alt="Icon"
                             class="w-12 h-12">
                     </div>
                     <div>
-                        <p class="text-gray-600">Belum ada materi</p>
-                        <p class="text-sm text-gray-500">Tekan "Tambah Materi" untuk menambahkan materi belajar</p>
+                        <p class="text-gray-600">Gambar Thumbnail</p>
+                        <p class="text-sm text-gray-500">Tekan "Tambah Gambar" untuk menambahkan gambar</p>
                     </div>
                 </div>
                 <div class="flex flex-wrap gap-4 mt-4">
@@ -79,14 +79,14 @@
                             class="bg-orange-500 hover:bg-orange-400 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                     </form>
                     </button>
-                    <button
+                    {{-- <button
                         class="border border-orange-500 text-orange-500 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-orange-200">
                         <a href="https://sites.google.com/ruangguru.com/ruangkelas-pptpembelajaran/materi-sd/kelas-6-bahasa-indonesia"
                             target="_blank" class=" flex items-center gap-2">
                             <span class="text-xl">🔍</span> Cari PPT Pembelajaran
                         </a>
 
-                    </button>
+                    </button> --}}
                 </div>
                 <div class="flex flex-wrap justify-between mt-6 gap-4">
                     <p class=" px-4 py-2"></p>
@@ -94,7 +94,7 @@
                         <a href="/guru/6"
                             class="border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-200">Kembali
                             ke Detail Materi</a>
-                        <button onclick="submit()" class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg">Lanjut Bagikan Materi</button>
+                        <button onclick="submit()" class="bg-orange-200 text-orange-500 px-4 py-2 rounded-lg">Lanjut Isi Form</button>
                         <script>
                             function submit(){
                                 document.getElementById('form-action').submit();

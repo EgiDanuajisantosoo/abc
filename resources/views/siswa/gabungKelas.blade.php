@@ -197,6 +197,9 @@
                                         {{ $no+1 }}
                                     </th>
                                     <td class="px-6 py-4">
+                                        @if ($codeKelas->code_kelas == '')
+                                            Menunggu Konfirmasi
+                                        @endif
                                         {{ $codeKelas->code_kelas }}
                                     </td>
                                 </tr>

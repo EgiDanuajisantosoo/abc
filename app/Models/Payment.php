@@ -22,6 +22,7 @@ class Payment extends Model
         'kecamatan',
         'kelurahan',
         'bukti',
+        'status',
     ];
 
     public function order()

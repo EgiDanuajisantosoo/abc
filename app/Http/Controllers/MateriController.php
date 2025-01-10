@@ -92,10 +92,11 @@ class MateriController extends Controller
 
         ]);
         // $request->session()->flush();
+        $idKelas = session('kelas_id');
         Session::forget('kelas_id');
         Session::forget(['judul', 'topik', 'modul','deskripsi','filename']);
 
 
-        return redirect('/kelas');
+        return redirect('/timeLine/'.$idKelas);
     }
 }

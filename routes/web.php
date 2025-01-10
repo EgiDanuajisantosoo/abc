@@ -5,6 +5,7 @@ use App\Models\Siswa;
 use App\Models\Materi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LokasiController;
@@ -43,6 +44,20 @@ Route::get('/user/pembayaran',[OrderController::class, 'pembayaran'])->name('use
 // Route::get('/siswa/1', function () {
 //     return view('siswa.timeLine');
 // });
+
+Route::get('/download/public/modul/{filename}', function ($filename) {
+    $filePath = 'public/modul/' . $filename;
+    // dd($filePath);
+    // dd($filePath);
+
+    // Periksa apakah file ada di disk
+    if (!Storage::exists($filePath)) {
+        abort(404, 'File not found.');
+    }
+
+    // Kirim file untuk diunduh
+    return Storage::download($filePath);
+});
 
 Route::get('/siswa/timeline/{id}',[KelasController::class,'kelasUser'])->name('kelasUser');
 

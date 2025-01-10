@@ -55,7 +55,7 @@ class PaymentController extends Controller
 
     public function tampilPembayaran(){
 
-        $pembayaran = Order::where('guru_id',Auth::id())->get();
+        $pembayaran = Order::where([['guru_id', Auth::id()]])->get();
         // dd($pembayaran);
         return view('guru.daftarPesanan',compact('pembayaran'));
     }

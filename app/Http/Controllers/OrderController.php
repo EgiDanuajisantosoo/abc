@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Materi;
 use App\Models\Katalog;
+use App\Models\Payment;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,12 @@ class OrderController extends Controller
         $kirimCode = Order::where([['user_id',$request->user_id],['guru_id',Auth::id()],['materi_id',$request->materi_id],['status','Dibayar']])->with('materi.kelas')->first();
         $CodeKelas = $kirimCode->materi->kelas->code_kelas;
 
-        // dd($kirimCode);
+        $Payment = Payment::where('order_id',$kirimCode->id)->first();
+        // dd($Payment);
+        $Payment->update([
+            'status' => 'Dikonfirmasi'
+        ]);
+
         $kirimCode->update([
             'code_kelas' => $CodeKelas
         ]);
