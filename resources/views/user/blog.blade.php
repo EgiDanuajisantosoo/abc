@@ -49,7 +49,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/user/1" class="flex items-center p-2 rounded-md hover:bg-blue-600">
+                    <a href="user/pembayaran" class="flex items-center p-2 rounded-md hover:bg-blue-600">
                         <i class="fas fa-envelope mr-2"></i> Menu Pembayaran
                     </a>
                 </li>

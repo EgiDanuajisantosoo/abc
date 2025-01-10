@@ -185,6 +185,9 @@
                                         No
                                     </th>
                                     <th scope="col" class="px-6 py-3">
+                                        nama kelas
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
                                         Code
                                     </th>
                                 </tr>
@@ -195,6 +198,10 @@
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $no+1 }}
+                                    </th>
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $codeKelas->materi->kelas->nama_kelas}}
                                     </th>
                                     <td class="px-6 py-4">
                                         @if ($codeKelas->code_kelas == '')

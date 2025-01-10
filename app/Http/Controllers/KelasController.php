@@ -65,20 +65,24 @@ class KelasController extends Controller
             'kode' => 'required|string'
         ]);
 
+
         $cariKelas = Kelas::where('code_kelas',$request->kode)->first();
         $idKelas = $cariKelas->id;
-        // dd($idKelas);
-        Siswa::create([
-            'user_id' => Auth::id(),
-            'kelas_id' => $idKelas
-        ]);
+        $cariSiswa = Siswa::where('kelas_id',$cariKelas->id)->count();
+        // dd($cariSiswa);
+        if($cariSiswa == 0){
+            Siswa::create([
+                'user_id' => Auth::id(),
+                'kelas_id' => $idKelas
+            ]);
+        }
 
         return redirect()->back();
     }
 
 
     public function siswaIndex(){
-        $code = Order::where([['user_id',Auth::id()],['status','Dibayar']])->get('code_kelas');
+        $code = Order::where([['user_id',Auth::id()],['status','Dibayar']])->with('materi.kelas')->get();
         $kelas = Siswa::where('user_id',Auth::id())->get();
         session()->forget('kelas_id');
         return view('siswa.gabungKelas',compact('kelas','code'));
